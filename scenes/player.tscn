@@ -32,7 +32,7 @@ script = ExtResource("1_3vyb7")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=63286165]
 sprite_frames = SubResource("SpriteFrames_g4v7s")
-frame_progress = 0.38425815
+frame_progress = 0.6211422
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1434704694]
 

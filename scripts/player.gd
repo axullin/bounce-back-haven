@@ -22,11 +22,16 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	shoot()
 
+
 func shoot():
-	if Input.is_action_just_pressed('shoot'):
+	if Input.is_action_just_pressed("shoot"):
+		var target_pos = get_global_mouse_position()
+
 		bt = bullet.instantiate()
 		get_parent().add_child(bt)
-		bt.global_position = $Node2D.global_position
+
+		bt.setup($AnimatedSprite2D.global_position, target_pos)
+
 
 func _on_pickup_area_area_entered(area: Area2D) -> void:
 	if area.is_in_group("object") and not $HeldObject.visible:
