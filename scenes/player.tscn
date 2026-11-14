@@ -4,6 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://kt3ech6b1bw" path="res://assets/icon.svg" id="2_g2els"]
 [ext_resource type="Texture2D" uid="uid://cn2y0yi6ikwlc" path="res://assets/frame-1.png" id="2_qhqgy"]
 [ext_resource type="Texture2D" uid="uid://ddclo7gjaj2jh" path="res://assets/frame-2.png" id="4_dqkch"]
+[ext_resource type="Texture2D" uid="uid://drcvqlhbvrpjc" path="res://assets/picotap_chodnik-frame-01.png" id="4_tuyoq"]
+[ext_resource type="Texture2D" uid="uid://ctdhh8txd52i6" path="res://assets/picotap_chodnik-frame-02.png" id="5_fjrip"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_g4v7s"]
 animations = [{
@@ -15,8 +17,19 @@ animations = [{
 "texture": ExtResource("4_dqkch")
 }],
 "loop": 1,
-"name": &"default",
+"name": &"idle",
 "speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_tuyoq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_fjrip")
+}],
+"loop": 1,
+"name": &"walk",
+"speed": 5.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_57qmd"]
@@ -34,7 +47,9 @@ script = ExtResource("1_3vyb7")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=63286165]
 sprite_frames = SubResource("SpriteFrames_g4v7s")
-frame_progress = 0.6211422
+animation = &"walk"
+frame = 1
+frame_progress = 0.70385176
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1434704694]
 
@@ -55,6 +70,7 @@ position = Vector2(0.9375, 2)
 shape = SubResource("CapsuleShape2D_dqkch")
 
 [node name="BulletSpawn" type="Marker2D" parent="." unique_id=1337669848]
+position = Vector2(0, 6)
 
 [node name="SwordHitbox" type="Area2D" parent="." unique_id=231352135]
 position = Vector2(-9, 2)

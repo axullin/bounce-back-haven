@@ -11,16 +11,36 @@ const JUMP_VELOCITY = -200.0
 var bt
 var current_weapon = Weapon.SWORD
 var can_attack = true
+var charge_time = 0.0
+var is_charging = false
+const MIN_JUMP_VELOCITY = -200.0
+const MAX_JUMP_VELOCITY = -500.0
+const MAX_CHARGE_TIME = 1.5
 @onready var bullet = preload("res://scenes/bullet.tscn")
-
+@onready var anim = $AnimatedSprite2D
+# Movement + function def.
 func _physics_process(delta: float) -> void:
+
+	if is_on_floor() and Input.is_action_pressed("charge_jump"):
+		is_charging = true
+		charge_time = min(charge_time + delta, MAX_CHARGE_TIME)
+
+	if is_charging and Input.is_action_just_released("charge_jump"):
+		var charge_ratio = charge_time / MAX_CHARGE_TIME
+
+		velocity.y = lerp(
+			MIN_JUMP_VELOCITY,
+			MAX_JUMP_VELOCITY,
+			charge_ratio
+		)
+		is_charging = false
+		charge_time = 0.0
+
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
-
 	var direction := Input.get_axis("move_left", "move_right")
+
 	if direction:
 		velocity.x = direction * SPEED
 	else:
@@ -28,8 +48,8 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 	handle_weapon_input()
-
-
+	update_animation()
+# Weapon input xd
 func handle_weapon_input():
 	if Input.is_action_just_pressed("weapon_sword"):
 		current_weapon = Weapon.SWORD
@@ -50,17 +70,15 @@ func handle_weapon_input():
 
 			Weapon.SHOTGUN:
 				shotgun_shoot()
-
-
+# Pistol idk why im writing ts
 func pistol_shoot():
 	var target_pos = get_global_mouse_position()
 	var spawn_pos = $BulletSpawn.global_position
 
-	var bt = bullet.instantiate()
+	bt = bullet.instantiate()
 	get_parent().add_child(bt)
 	bt.setup(spawn_pos, target_pos)
-
-
+# Shotgun...
 func shotgun_shoot():
 	var target_pos = get_global_mouse_position()
 	var spawn_pos = $BulletSpawn.global_position
@@ -71,10 +89,10 @@ func shotgun_shoot():
 		var aim = (target_pos - spawn_pos).normalized()
 		var pellet_target = spawn_pos + aim.rotated(angle) * 1000.0
 
-		var bt = bullet.instantiate()
+		bt = bullet.instantiate()
 		get_parent().add_child(bt)
 		bt.setup(spawn_pos, pellet_target)
-		
+# And sword
 func sword_attack():
 	if not can_attack:
 		return
@@ -90,3 +108,15 @@ func sword_attack():
 	await get_tree().create_timer(0.25).timeout
 
 	can_attack = true
+# Animationssssss
+func update_animation():
+
+	if abs(velocity.x) > 0:
+		anim.play("walk")
+	else:
+		anim.play("idle")
+		
+	if velocity.x > 0:
+		anim.flip_h = true
+	elif velocity.x < 0:
+		anim.flip_h = false
