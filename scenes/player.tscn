@@ -27,6 +27,8 @@ height = 20.0
 radius = 7.0625
 height = 24.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yf5fn"]
+
 [node name="Player" type="CharacterBody2D" unique_id=1066373720]
 script = ExtResource("1_3vyb7")
 
@@ -51,5 +53,15 @@ shape = SubResource("CapsuleShape2D_57qmd")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea" unique_id=1580908338]
 position = Vector2(0.9375, 2)
 shape = SubResource("CapsuleShape2D_dqkch")
+
+[node name="BulletSpawn" type="Marker2D" parent="." unique_id=1337669848]
+
+[node name="SwordHitbox" type="Area2D" parent="." unique_id=231352135]
+position = Vector2(-9, 2)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SwordHitbox" unique_id=804935157]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_yf5fn")
+disabled = true
 
 [connection signal="area_entered" from="PickupArea" to="." method="_on_pickup_area_area_entered"]

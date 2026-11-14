@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dqejc7drsn038"]
 
 [ext_resource type="Script" uid="uid://duuueuuiplcbn" path="res://scripts/bullet.gd" id="1_mkf8s"]
-[ext_resource type="Texture2D" uid="uid://kt3ech6b1bw" path="res://assets/icon.svg" id="1_y25gk"]
+[ext_resource type="Texture2D" uid="uid://c7ctweaiiuc82" path="res://assets/picotap_Untitled 15_32x32.png" id="1_y25gk"]
 
 [node name="Sprite2D" type="Sprite2D" unique_id=1432207655]
 texture = ExtResource("1_y25gk")

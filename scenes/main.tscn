@@ -1,16 +1,34 @@
-[gd_scene format=4 uid="uid://7qgp4jook1uq"]
+[gd_scene format=3 uid="uid://7qgp4jook1uq"]
 
 [ext_resource type="PackedScene" uid="uid://cg88yufd8ykb" path="res://scenes/player.tscn" id="1_0wfyh"]
-[ext_resource type="PackedScene" uid="uid://dlh54jyaha34u" path="res://tile_map_layer.tscn" id="1_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://bblhnkq8od8cb" path="res://scenes/object.tscn" id="1_sugp2"]
+[ext_resource type="Texture2D" uid="uid://cdi3kx5yh4a0" path="res://assets/tło.png" id="3_sugp2"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_57qmd"]
 distance = -186.0
 
 [node name="Main" type="Node2D" unique_id=1107407252]
 
-[node name="TileMapLayer" parent="." unique_id=276225858 instance=ExtResource("1_jyhfs")]
-tile_map_data = PackedByteArray("AAAPAAEAAAAEAAAAAAAQAAAAAAAEAAAAAAARAAAAAAAEAAAAAAASAAAAAAAEAAAAAAATAAAAAAAEAAAAAAAUAAAAAAAEAAAAAAAVAAAAAAAEAAAAAAAWAAAAAAAEAAAAAAAOAAEAAAAEAAAAAAANAAEAAAAEAAAAAAAMAAEAAAAEAAAAAAALAAEAAAAEAAAAAAAKAAEAAAAEAAAAAAAJAAEAAAAEAAAAAAAIAAEAAAAEAAAAAAAHAAEAAAAEAAAAAAAGAAEAAAAEAAAAAAAFAAEAAAAEAAAAAAAEAAEAAAAEAAAAAAADAAEAAAAEAAAAAAACAAEAAAAEAAAAAAABAAEAAAAEAAAAAAAAAAEAAAAEAAAAAAD//wEAAAAEAAAAAAD+/wEAAAAEAAAAAAD9/wEAAAAEAAAAAAD8/wEAAAAEAAAAAAD7/wEAAAAEAAAAAAD6/wEAAAAEAAAAAAD5/wEAAAAEAAAAAAD4/wEAAAAEAAAAAAD3/wEAAAAEAAAAAAD2/wEAAAAEAAAAAAD1/wEAAAAEAAAAAAD0/wEAAAAEAAAAAADz/wEAAAAEAAAAAADy/wEAAAAEAAAAAAA=")
+[node name="Tło" type="Sprite2D" parent="." unique_id=1293230781]
+scale = Vector2(0.215, 0.215)
+texture = ExtResource("3_sugp2")
+
+[node name="Tło3" type="Sprite2D" parent="." unique_id=651239393]
+position = Vector2(352.99976, -22.000002)
+scale = Vector2(0.215, 0.215)
+texture = ExtResource("3_sugp2")
+
+[node name="Tło2" type="Sprite2D" parent="." unique_id=11391245]
+position = Vector2(179.99982, 30.000004)
+scale = Vector2(0.215, 0.215)
+texture = ExtResource("3_sugp2")
+flip_h = true
+
+[node name="Tło4" type="Sprite2D" parent="." unique_id=965865312]
+position = Vector2(-193.99988, 8.000001)
+scale = Vector2(0.215, 0.215)
+texture = ExtResource("3_sugp2")
+flip_h = true
 
 [node name="Object" parent="." unique_id=1776889392 groups=["object"] instance=ExtResource("1_sugp2")]
 position = Vector2(40, -20)

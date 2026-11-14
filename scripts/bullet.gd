@@ -4,7 +4,7 @@ var bullet_speed = 600.0
 var direction = Vector2.ZERO
 
 func _ready() -> void:
-	scale = Vector2(0.1, 0.1)
+	scale = Vector2(2, 2)
 
 func setup(start_pos: Vector2, target_pos: Vector2) -> void:
 	global_position = start_pos
