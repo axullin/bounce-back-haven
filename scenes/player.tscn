@@ -40,8 +40,6 @@ height = 20.0
 radius = 7.0625
 height = 24.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_yf5fn"]
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_16d1p"]
 radius = 8.0
 
@@ -75,15 +73,10 @@ shape = SubResource("CapsuleShape2D_dqkch")
 [node name="BulletSpawn" type="Marker2D" parent="." unique_id=1337669848]
 position = Vector2(0, 6)
 
-[node name="SwordHitbox" type="Area2D" parent="." unique_id=231352135]
-position = Vector2(-9, 2)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SwordHitbox" unique_id=804935157]
-position = Vector2(-1, 0)
-shape = SubResource("RectangleShape2D_yf5fn")
-disabled = true
-
 [node name="Hurtbox" type="Area2D" parent="." unique_id=628775682]
+collision_layer = 4
+collision_mask = 0
+monitoring = false
 
 [node name="Kolizja_od_hurtbox" type="CollisionShape2D" parent="Hurtbox" unique_id=589469815]
 position = Vector2(1, 4)
