@@ -13,7 +13,7 @@ enum Pattern {
 	DEFLECT,
 }
 
-@export var max_health = 300
+@export var max_health = 3000
 @export var contact_damage: int = 15
 @export var move_speed = 70.0
 @export var dash_speed = 220.0
@@ -23,7 +23,7 @@ enum Pattern {
 @onready var hitbox = $Hitbox
 @onready var boss_bullet = preload("res://scenes/boss_bullet.tscn")
 
-var health = 300
+var health = 3000
 var player: CharacterBody2D
 var phase := 1
 var busy := false
@@ -186,7 +186,6 @@ func _pattern_fan_shot() -> void:
 		await get_tree().create_timer(0.08).timeout
 
 func _pattern_slam() -> void:
-	# Unique mechanic: telegraph, rise, crash — dodge with charged bounce jump
 	modulate = Color(0.7, 0.85, 1.4)
 	await get_tree().create_timer(0.3).timeout
 
@@ -216,7 +215,6 @@ func _pattern_ring_shot() -> void:
 	await get_tree().create_timer(0.35).timeout
 
 func _pattern_deflect() -> void:
-	# Special: armor up, bullets bounce back at the player
 	deflecting = true
 	modulate = Color(0.45, 0.95, 1.35)
 	await get_tree().create_timer(1.6 if phase < 3 else 2.0).timeout
@@ -225,19 +223,44 @@ func _pattern_deflect() -> void:
 	modulate = Color.WHITE
 
 func _spawn_shockwave() -> void:
-	# Two ground projectiles traveling left/right — jump over them
 	for dir_x in [-1.0, 1.0]:
-		var bullet = boss_bullet.instantiate()
-		get_parent().add_child(bullet)
 		var start = Vector2(global_position.x, home_y + 10.0)
-		bullet.setup(start, start + Vector2(dir_x * 200.0, 0.0), 180.0, contact_damage)
-		bullet.modulate = Color(1.0, 0.85, 0.2)
-		bullet.scale = Vector2(1.6, 1.0)
+		call_deferred(
+			"_spawn_bullet_now",
+			start,
+			start + Vector2(dir_x * 200.0, 0.0),
+			180.0,
+			contact_damage,
+			Color(1.0, 0.85, 0.2),
+			Vector2(1.6, 1.0)
+		)
 
 func _spawn_bullet(from: Vector2, to: Vector2, speed: float) -> void:
+	call_deferred(
+		"_spawn_bullet_now",
+		from,
+		to,
+		speed,
+		10 + phase * 2,
+		Color.WHITE,
+		Vector2.ONE
+	)
+
+func _spawn_bullet_now(
+	from: Vector2,
+	to: Vector2,
+	speed: float,
+	dmg: int,
+	mod: Color = Color.WHITE,
+	scl: Vector2 = Vector2.ONE
+) -> void:
+	if not is_instance_valid(self) or get_parent() == null:
+		return
 	var bullet = boss_bullet.instantiate()
 	get_parent().add_child(bullet)
-	bullet.setup(from, to, speed, 10 + phase * 2)
+	bullet.setup(from, to, speed, dmg)
+	bullet.modulate = mod
+	bullet.scale = scl
 
 func _move_to(target: Vector2, duration: float) -> void:
 	var start = global_position
@@ -327,4 +350,4 @@ func _update_visual_state() -> void:
 func _on_hitbox_area_entered(area: Area2D) -> void:
 	var target = area.get_parent()
 	if target and target != self and target.has_method("take_damage"):
-		target.take_damage(contact_damage)
+		target.call_deferred("take_damage", contact_damage)

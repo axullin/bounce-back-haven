@@ -24,7 +24,10 @@ var health = 100
 var invulnerable = false
 
 @onready var bullet = preload("res://scenes/bullet.tscn")
+@onready var bluescreen_scene = preload("res://scenes/bluescreen.tscn")
 @onready var anim = $AnimatedSprite2D
+
+var dead := false
 
 func _ready():
 	health = max_health
@@ -118,5 +121,13 @@ func take_damage(amount: int):
 	invulnerable = false
 
 func die():
+	if dead:
+		return
+	dead = true
 	print("Gracz zginął!")
-	get_tree().reload_current_scene()
+	set_physics_process(false)
+	call_deferred("_show_bluescreen")
+
+func _show_bluescreen() -> void:
+	var bsod = bluescreen_scene.instantiate()
+	get_tree().root.add_child(bsod)

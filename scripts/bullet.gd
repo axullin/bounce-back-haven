@@ -19,5 +19,7 @@ func _physics_process(delta: float) -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("enemy"):
-		body.take_damage(damage)
+		# Defer so boss deflect/spawn never runs mid physics query flush
+		body.call_deferred("take_damage", damage)
+		set_deferred("monitoring", false)
 		queue_free()

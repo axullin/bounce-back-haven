@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://dvwlrd43r7441"]
+
+[ext_resource type="Script" path="res://scripts/bluescreen.gd" id="1_bsod"]
+[ext_resource type="Texture2D" uid="uid://dtnmthhnv7vpk" path="res://assets/bluescreen.jpg" id="2_tex"]
+
+[node name="BlueScreen" type="CanvasLayer"]
+process_mode = 3
+layer = 128
+script = ExtResource("1_bsod")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+texture = ExtResource("2_tex")
+expand_mode = 1
+stretch_mode = 0
+texture_filter = 2
