@@ -42,6 +42,9 @@ height = 24.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yf5fn"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_16d1p"]
+radius = 8.0
+
 [node name="Player" type="CharacterBody2D" unique_id=1066373720 groups=["player"]]
 script = ExtResource("1_3vyb7")
 
@@ -79,5 +82,11 @@ position = Vector2(-9, 2)
 position = Vector2(-1, 0)
 shape = SubResource("RectangleShape2D_yf5fn")
 disabled = true
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=628775682]
+
+[node name="Kolizja_od_hurtbox" type="CollisionShape2D" parent="Hurtbox" unique_id=589469815]
+position = Vector2(1, 4)
+shape = SubResource("CircleShape2D_16d1p")
 
 [connection signal="area_entered" from="PickupArea" to="." method="_on_pickup_area_area_entered"]

@@ -22,6 +22,9 @@ animations = [{
 radius = 8.0
 height = 18.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_16d1p"]
+radius = 11.0
+
 [node name="Enemy" type="CharacterBody2D" unique_id=311243696]
 collision_layer = 2
 script = ExtResource("1_7p1mj")
@@ -34,3 +37,11 @@ frame_progress = 0.8729426
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=3774236]
 position = Vector2(0, 4)
 shape = SubResource("CapsuleShape2D_md0e3")
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=1594449465]
+
+[node name="Kolizja_ale_inna" type="CollisionShape2D" parent="Hitbox" unique_id=1393179494]
+position = Vector2(0, 4)
+shape = SubResource("CircleShape2D_16d1p")
+
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]

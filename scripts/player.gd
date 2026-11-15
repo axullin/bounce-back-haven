@@ -120,3 +120,24 @@ func update_animation():
 		anim.flip_h = true
 	elif velocity.x < 0:
 		anim.flip_h = false
+
+@export var max_health = 100
+var health = 100
+signal health_changed(new_health) 
+
+func _ready():
+	health = max_health
+	
+
+# Do
+func take_damage(amount: int):
+	health -= amount
+	print("Gracz dostał obrażenia! HP: ", health)
+	health_changed.emit(health)
+	
+	if health <= 0:
+		die()
+
+func die():
+	print("Gracz zginął!")
+	

@@ -43,3 +43,17 @@ func update_animation():
 		anim.flip_h = true
 	elif velocity.x < 0:
 		anim.flip_h = false
+
+
+func _on_hitbox_area_entered(area: Area2D) -> void:
+	pass # Replace with function body.
+@export var damage: int = 10 # Obrażenia zadawane przez wroga
+
+
+func _on_hitbox_area_entered_enemy(area: Area2D) -> void:
+	
+	var target = area.get_parent()
+	if target and target.has_method("take_damage"):
+		
+		if target != self: 
+			target.take_damage(damage)
