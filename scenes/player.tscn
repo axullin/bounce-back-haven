@@ -42,7 +42,7 @@ height = 24.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yf5fn"]
 
-[node name="Player" type="CharacterBody2D" unique_id=1066373720]
+[node name="Player" type="CharacterBody2D" unique_id=1066373720 groups=["player"]]
 script = ExtResource("1_3vyb7")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=63286165]
